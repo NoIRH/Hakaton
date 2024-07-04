@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru-en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- INCLUDE CSS -->
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'bootstrap-icons/font/bootstrap-icons.min.css' %}" type="text/css" rel="stylesheet">
+  <!-- Bootstrap JS + Popper JS -->
+ 
+    <title>Main</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary gx-5">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">VideoCapturer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/info"><i class="bi bi-patch-question"></i></a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <ul class="navbar-nav me-auto mb-2">
+            <li class="nav-item dropstart">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <h8> <i class="bi bi-file-lock2-fill"></i></h8>
+              </a>
+              {% if user.is_authenticated %}
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{%url  'user_files' %}">Профиль</a></li>
+                <li>
+                  <form  action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class ="dropdown-item" type="submit">Выход</button>
+                 </form>
+                </li>
+              </ul>
+            	{% else %}
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'login' %}">Вход</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'register' %}">Регистрация</a></li>
+              </ul>
+          	  {% endif %}
+             
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+    <div class="container-fluid">
+        {% block content%}
+         <p class="text-center">Приветcтвую
+          {% if user.is_authenticated %}
+              {{ user.get_username }}
+          {% else %}
+              Незнакомец
+          {% endif %}
+          в этом прекрасном месте
+         </p>
+        {% endblock content %}     
+    </div>
+    <footer class="mt-auto">
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2024 Copyright:
+        <a class="text-body" href="/">VideoCapturer.com</a>
+      </div>
+    </footer>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

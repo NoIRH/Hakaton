@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{%block content%}
+<form aciton="file_upload/" method="POST" enctype="multipart/form-data">
+    <div class="text-center mb-3 p-4">
+        {% csrf_token %}
+        <label for="formFile" class="form-label">Выберите видео для обработки</label>
+        <input class="form-control" type="file" id="myfile" name ="myfile">
+        <button type="submit">Загрузить</button>
+      </div>
+</form>
+<p>Ссылка: <a href="{{ file_url }}">{{ file_url }}</a></p>
+{%endblock content%}
