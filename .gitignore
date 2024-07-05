@@ -151,3 +151,5 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+real-time-object-detection/
+test_videos/
